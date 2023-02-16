@@ -82,6 +82,14 @@ function finishGame() {
  * @returns {Void}
  */
 function showGameOver() {
+    console.log("score ", scores);
+    let details = {
+        score: 10,
+        gameID: "b242ab86-c335-41d6-a16c-06797ccfd453",
+        gameCompleted: true,
+        gameLevel: "NA"
+    };
+    window.dispatchEvent(new CustomEvent('GAME_ENDED', {'detail': details}));
     display.set("gameOver").show();
     sounds.play("end");
     scores.setInput();
@@ -274,3 +282,7 @@ function main() {
 
 // Load the game
 window.addEventListener("load", main, false);
+
+window.addEventListener("GAME_START", () => {
+    newGame();
+})
