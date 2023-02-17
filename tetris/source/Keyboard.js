@@ -60,6 +60,7 @@ export default class Keyboard {
      * @returns {Void}
      */
     pressKey(key, event) {
+        console.log("pressKey")
         const keyCode  = KeyCode.keyToCode(key);
         const number   = KeyCode.keyToNumber(key, true);
         let   shortcut = "";
@@ -107,6 +108,7 @@ export default class Keyboard {
      * @returns {Void}
      */
     onKeyDown(event) {
+        console.log("onKeydown");
         if (this.display.isPlaying && KeyCode.isFastKey(event.keyCode)) {
             if (this.keyPressed === null) {
                 this.keyPressed = event.keyCode;
@@ -122,6 +124,7 @@ export default class Keyboard {
      * @returns {Void}
      */
     onKeyUp() {
+        console.log("onKeyUp");
         this.keyPressed = null;
         this.count      = 0;
     }
@@ -131,6 +134,7 @@ export default class Keyboard {
      * @returns {Void}
      */
     onKeyHold() {
+        console.log("onKeyHold");
         if (this.keyPressed !== null && this.display.isPlaying) {
             this.pressKey(this.keyPressed);
         }

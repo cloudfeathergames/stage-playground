@@ -33,6 +33,7 @@ const maxInitialLevel = 10;
  * @returns {Void}
  */
 function showMainScreen() {
+    console.log("showMainScreen")
     display.set("mainScreen").show();
 }
 
@@ -41,6 +42,7 @@ function showMainScreen() {
  * @returns {Void}
  */
 function startPause() {
+    console.log("startPause")
     display.set("paused").show();
     sounds.play("pause");
     cancelAnimation();
@@ -51,6 +53,7 @@ function startPause() {
  * @returns {Void}
  */
 function endPause() {
+    console.log("endPause")
     display.set("playing").hide();
     sounds.play("pause");
     requestAnimation();
@@ -61,6 +64,7 @@ function endPause() {
  * @returns {Void}
  */
 function showPause() {
+    console.log("showPause")
     if (display.isPaused) {
         endPause();
     } else {
@@ -73,6 +77,7 @@ function showPause() {
  * @returns {Void}
  */
 function finishGame() {
+    console.log("finishGame")
     destroyGame();
     showMainScreen();
 }
@@ -82,14 +87,22 @@ function finishGame() {
  * @returns {Void}
  */
 function showGameOver() {
-    console.log("score ", scores);
+    console.log("score ", score.score);
     let details = {
-        score: 10,
+        score: score.score,
         gameID: "b242ab86-c335-41d6-a16c-06797ccfd453",
         gameCompleted: true,
         gameLevel: "NA"
     };
-    window.dispatchEvent(new CustomEvent('GAME_ENDED', {'detail': details}));
+    
+    if(localStorage.getItem("currentFlow") === "Create"){
+      window.dispatchEvent(new CustomEvent("CREATE_BOUNTY_GAME_ENDED", { detail: details }));
+    } else {
+      window.dispatchEvent(
+        new CustomEvent("NORMAL_GAME_ENDED", { detail: details })
+      );
+    }
+    
     display.set("gameOver").show();
     sounds.play("end");
     scores.setInput();
@@ -101,6 +114,7 @@ function showGameOver() {
  * @returns {Void}
  */
 function destroyGame() {
+    console.log("destroyGame")
     board.clearElements();
     tetriminos.clearElements();
 }
@@ -110,6 +124,7 @@ function destroyGame() {
  * @returns {Void}
  */
 function showHighScores() {
+    console.log("showHighScores");
     display.set("highScores").show();
     scores.show();
 }
@@ -119,6 +134,7 @@ function showHighScores() {
  * @returns {Void}
  */
 function saveHighScore() {
+    console.log("saveHighScore")
     if (scores.save(score.level, score.score)) {
         showHighScores();
     }
@@ -129,6 +145,7 @@ function saveHighScore() {
  * @returns {Void}
  */
 function showHelp() {
+    console.log("showHelp")
     display.set("help").show();
 }
 
@@ -138,6 +155,7 @@ function showHelp() {
  * Called when a wink ends
  */
 function onWindEnd() {
+    console.log("onWindEnd")
     tetriminos.setHardDrop();
     requestAnimation();
 }
@@ -146,6 +164,7 @@ function onWindEnd() {
  * Starts a new game
  */
 function newGame() {
+    console.log("newGame")
     display.set("playing").hide();
     keyboard.reset();
 
@@ -153,6 +172,7 @@ function newGame() {
     score      = new Score(level.get(), maxInitialLevel);
     tetriminos = new Tetriminos(board, sounds, score, tetriminoSize, showGameOver);
 
+    console.log("score", score);
     requestAnimation();
 }
 
@@ -163,8 +183,10 @@ function newGame() {
  * @returns {Void}
  */
 function requestAnimation() {
+    console.log("requestAnimationFrame")
     startTime = new Date().getTime();
     animation = window.requestAnimationFrame(() => {
+        console.log("requestAnimationFrame2")
         const time = new Date().getTime() - startTime;
 
         score.decTime(time);
@@ -185,6 +207,7 @@ function requestAnimation() {
  * @returns {Void}
  */
 function cancelAnimation() {
+    console.log("cancelAnimation")
     window.cancelAnimationFrame(animation);
 }
 
@@ -241,27 +264,27 @@ function getShortcuts() {
  * @returns {Void}
  */
 function initDomListeners() {
-    document.body.addEventListener("click", (e) => {
-        const element = Utils.getTarget(e);
-        const actions = {
-            decrease   : () => level.dec(),
-            increase   : () => level.inc(),
-            start      : () => newGame(),
-            mainScreen : () => showMainScreen(),
-            endPause   : () => endPause(),
-            pause      : () => showPause(),
-            finishGame : () => finishGame(),
-            highScores : () => showHighScores(),
-            help       : () => showHelp(),
-            save       : () => saveHighScore(),
-            restore    : () => scores.restore(),
-            sound      : () => sounds.toggle()
-        };
+  document.body.addEventListener("click", (e) => {
+    const element = Utils.getTarget(e);
+    const actions = {
+      decrease: () => level.dec(),
+      increase: () => level.inc(),
+      start: () => newGame(),
+      mainScreen: () => showMainScreen(),
+      endPause: () => endPause(),
+      pause: () => showPause(),
+      finishGame: () => finishGame(),
+      highScores: () => showHighScores(),
+      help: () => showHelp(),
+      save: () => saveHighScore(),
+      restore: () => scores.restore(),
+      sound: () => sounds.toggle(),
+    };
 
-        if (actions[element.dataset.action]) {
-            actions[element.dataset.action]();
-        }
-    });
+    if (actions[element.dataset.action]) {
+      actions[element.dataset.action]();
+    }
+  });
 }
 
 
