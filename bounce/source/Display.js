@@ -15,7 +15,7 @@ export default class Display {
         this.messages  = {
             mainScreen : [ "Bounce",     "Select a game"      ],
             paused     : [ "Paused",     "Continue the game?" ],
-            gameOver   : [ "GameOver",   "Write your name"    ],
+            gameOver   : [ "GameOver"/*,   "Write your name"*/    ],
             highScores : [ "HighScores", "Select a game"      ],
             help       : [ "Help",       "Game controls"      ],
         };

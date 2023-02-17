@@ -25,9 +25,9 @@ export default class HighScores {
         this.none      = document.querySelector(".none");
 
         /** @type {HTMLInputElement} */
-        this.input         = document.querySelector(".input input");
-        this.input.onfocus = () => { this.isFocused = true; };
-        this.input.onblur  = () => { this.isFocused = false; };
+        // this.input         = document.querySelector(".input input");
+        // this.input.onfocus = () => { this.isFocused = true; };
+        // this.input.onblur  = () => { this.isFocused = false; };
     }
 
     /**
@@ -144,7 +144,7 @@ export default class HighScores {
      * @returns {Void}
      */
     setInput() {
-        this.input.value = "";
-        this.input.focus();
+        // this.input.value = "";
+        // this.input.focus();
     }
 }

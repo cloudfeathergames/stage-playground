@@ -26,8 +26,8 @@ export default class HighScores {
         /** @type {HTMLElement} */
         this.none      = document.querySelector(".none");
 
-        this.input.onfocus = () => this.isFocused = true;
-        this.input.onblur  = () => this.isFocused = false;
+        // this.input.onfocus = () => this.isFocused = true;
+        // this.input.onblur  = () => this.isFocused = false;
     }
 
 
@@ -152,7 +152,7 @@ export default class HighScores {
      * Sets the input value and focus it
      */
     setInput() {
-        this.input.value = "";
-        this.input.focus();
+        // this.input.value = "";
+        // this.input.focus();
     }
 }

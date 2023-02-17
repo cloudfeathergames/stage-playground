@@ -18,7 +18,7 @@ export default class HighScores {
         this.maxScores = 10;
 
         /** @type {HTMLInputElement} */
-        this.input     = document.querySelector(".input input");
+        // this.input     = document.querySelector(".input input");
 
         /** @type {HTMLElement} */
         this.scores    = document.querySelector(".scores");
@@ -26,8 +26,8 @@ export default class HighScores {
         /** @type {HTMLElement} */
         this.none      = document.querySelector(".none");
 
-        this.input.onfocus = () => this.isFocused = true;
-        this.input.onblur  = () => this.isFocused = false;
+        // this.input.onfocus = () => this.isFocused = true;
+        // this.input.onblur  = () => this.isFocused = false;
     }
 
     /**
@@ -158,7 +158,7 @@ export default class HighScores {
      * @returns {Void}
      */
     setInput() {
-        this.input.value = "";
-        this.input.focus();
+        // this.input.value = "";
+        // this.input.focus();
     }
 }
