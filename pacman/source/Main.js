@@ -38,17 +38,37 @@ let shortcuts  = null;;
  * @returns {Void}
  */
 function gameOver() {
-    display.set("ready");
-    animations.gameOver(() => {
-        food   = null;
-        fruit  = null;
-        ghosts = null;
-        blob   = null;
+  display.set("ready");
+  animations.gameOver(() => {
+    food = null;
+    fruit = null;
+    ghosts = null;
+    blob = null;
 
-        board.clearAll();
-        display.set("gameOver").show();
-        scores.setInput();
-    });
+    board.clearAll();
+    display.set("gameOver").show();
+    scores.setInput();
+  });
+
+  let details = {
+    score: score.score,
+    gameID: "ef0ff1b9-77f2-4416-9f81-ea62b49a826c",
+    gameCompleted: true,
+    gameLevel: "NA",
+  };
+
+  if (
+    localStorage.getItem("currentFlow") === "Create" ||
+    localStorage.getItem("currentFlow") === "Hunt"
+  ) {
+    window.dispatchEvent(
+      new CustomEvent("CREATE_HUNT_BOUNTY_GAME_ENDED", { detail: details })
+    );
+  } else {
+    window.dispatchEvent(
+      new CustomEvent("NORMAL_GAME_ENDED", { detail: details })
+    );
+  }
 }
 
 /**

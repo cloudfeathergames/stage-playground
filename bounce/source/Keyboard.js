@@ -82,7 +82,8 @@ export default class Keyboard {
             }
         } else {
             if (!this.display.isPlaying) {
-                event.preventDefault();
+                return;
+                // event.preventDefault();
             }
 
             if ([ "E", "1", "Numpad1" ].includes(keyCode)) {

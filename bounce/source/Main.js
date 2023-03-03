@@ -36,6 +36,7 @@ let startTime  = 0;
  * @returns {Void}
  */
 function showMainScreen() {
+
     display.set("mainScreen").show();
 }
 
@@ -53,6 +54,7 @@ function startGame() {
  * @returns {Void}
  */
 function finishGame() {
+    console.log("finish game")
     board.end();
     if (mode.isBricksMode) {
         bricks.destroy();
@@ -96,14 +98,35 @@ function endPause() {
  * @returns {Void}
  */
 function gameOver() {
-    display.set("gameOver");
-    hideGame();
-    scores.setInput();
-    board.end();
+  console.log("gameOver");
+  display.set("gameOver");
+  hideGame();
+  scores.setInput();
+  board.end();
 
-    if (mode.isBricksMode) {
-        bricks.destroy();
-    }
+  if (mode.isBricksMode) {
+    bricks.destroy();
+  }
+
+  let details = {
+    score: score.score,
+    gameID: "c1aacf1e-47e2-4260-b462-7652d6ec5535",
+    gameCompleted: true,
+    gameLevel: "NA",
+  };
+
+  if (
+    localStorage.getItem("currentFlow") === "Create" ||
+    localStorage.getItem("currentFlow") === "Hunt"
+  ) {
+    window.dispatchEvent(
+      new CustomEvent("CREATE_HUNT_BOUNTY_GAME_ENDED", { detail: details })
+    );
+  } else {
+    window.dispatchEvent(
+      new CustomEvent("NORMAL_GAME_ENDED", { detail: details })
+    );
+  }
 }
 
 /**

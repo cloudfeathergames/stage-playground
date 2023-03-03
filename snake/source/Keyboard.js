@@ -43,7 +43,8 @@ export default class Keyboard {
             }
         } else {
             if (!this.display.isPlaying) {
-                event.preventDefault();
+                return;
+                // event.preventDefault();
             }
 
             if ([ "Y", "1", "Numpad1" ].includes(keyCode)) {

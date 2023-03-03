@@ -68,6 +68,24 @@ function finishGame() {
  * @returns {Void}
  */
 function gameOver() {
+    console.log("score ", score);
+    let details = {
+        score: score.score,
+        gameID: "87bdcb08-8051-4d4f-be81-12ba5f670c90",
+        gameCompleted: true,
+        gameLevel: score.levelNames[score.level-1]
+    };
+    
+    if(localStorage.getItem("currentFlow") === "Create" || localStorage.getItem("currentFlow") === "Hunt"){
+      window.dispatchEvent(
+        new CustomEvent("CREATE_HUNT_BOUNTY_GAME_ENDED", { detail: details })
+      );
+    } 
+     else {
+       window.dispatchEvent(
+         new CustomEvent("NORMAL_GAME_ENDED", { detail: details })
+       );
+     }
     cancelAnimation();
     display.set("gameOver").show();
     scores.setInput();
